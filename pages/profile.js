@@ -22,7 +22,7 @@ const Profile = () => {
           </List.Item>
         )}
       />
-      <Lists
+      <List
         style={{marginBottom: '20px'}}
         grid={{gutter: 4, xs: 2, md: 3}}
         size="small"
