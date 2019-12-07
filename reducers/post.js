@@ -1,9 +1,18 @@
 const initialState = {
-  mainPosts: [],
+  mainPosts: [{
+    User: {
+      id: 1,
+      nickname: '콜러스',
+    },
+    content: '첫번째 게시글',
+    img: {},
+    createdAt: '',
+  }],
+  imagePaths: [],
 };
 
-const ADD_POST = 'ADD_POST';
-const ADD_DUMMY = 'ADD_DUMMY';
+export const ADD_POST = 'ADD_POST';
+export const ADD_DUMMY = 'ADD_DUMMY';
 
 const addPost = {
   type: ADD_POST,
