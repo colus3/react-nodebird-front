@@ -4,7 +4,7 @@ import PostForm from '../components/PostForm';
 import PostCard from '../components/PostCard';
 
 const Home = () => {
-  const { user, isLoggedIn } = useSelector((state) => state.user);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
   return (
