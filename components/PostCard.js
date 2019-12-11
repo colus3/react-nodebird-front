@@ -95,7 +95,7 @@ PostCard.propTypes = {
     }),
     content: PropTypes.string,
     img: PropTypes.string,
-    Comments: PropTypes.object,
+    Comments: PropTypes.array,
     createdAt: PropTypes.object,
   }),
 };
