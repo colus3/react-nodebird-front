@@ -100,7 +100,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingPost: false,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [action.data, ...state.mainPosts],
         postAdded: true,
       };
     }
@@ -109,6 +109,24 @@ export default (state = initialState, action) => {
         ...state,
         isAddingPost: false,
         addPostErrorReason: action.error,
+      };
+    }
+
+    case LOAD_MAIN_POSTS_REQUEST: {
+      return {
+        ...state,
+        mainPosts: [],
+      };
+    }
+    case LOAD_MAIN_POSTS_SUCCESS: {
+      return {
+        ...state,
+        mainPosts: action.data,
+      };
+    }
+    case LOAD_MAIN_POSTS_FAILURE: {
+      return {
+        ...state,
       };
     }
 
@@ -121,7 +139,7 @@ export default (state = initialState, action) => {
       };
     }
     case ADD_COMMENT_SUCCESS: {
-      const postIndex = state.mainPosts.findIndex(v => v.id === action.data.postId);
+      const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
       const post = state.mainPosts[postIndex];
       const Comments = [...post.Comments, dummyComment];
       const mainPosts = [...state.mainPosts];
