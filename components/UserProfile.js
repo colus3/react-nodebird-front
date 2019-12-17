@@ -14,7 +14,7 @@ const UserProfile = () => {
     });
   }, []);
 
-  console.error(`me : ${me}`);
+  // console.error(`me : ${me}`);
   return (
     <Card
       actions={[

@@ -84,19 +84,25 @@ export default (state = initialState, action) => {
       };
     }
 
-    case LOAD_MAIN_POSTS_REQUEST: {
+    case LOAD_MAIN_POSTS_REQUEST:
+    case LOAD_HASHTAG_POST_REQUEST:
+    case LOAD_USER_POSTS_REQUEST: {
       return {
         ...state,
         mainPosts: [],
       };
     }
-    case LOAD_MAIN_POSTS_SUCCESS: {
+    case LOAD_MAIN_POSTS_SUCCESS:
+    case LOAD_HASHTAG_POST_SUCCESS:
+    case LOAD_USER_POSTS_SUCCESS: {
       return {
         ...state,
         mainPosts: action.data,
       };
     }
-    case LOAD_MAIN_POSTS_FAILURE: {
+    case LOAD_MAIN_POSTS_FAILURE:
+    case LOAD_HASHTAG_POST_FAILURE:
+    case LOAD_USER_POSTS_FAILURE: {
       return {
         ...state,
       };
@@ -129,6 +135,27 @@ export default (state = initialState, action) => {
         ...state,
         isAddingComment: false,
         addCommentErrorReason: action.error,
+      };
+    }
+    case LOAD_COMMENTS_REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case LOAD_COMMENTS_SUCCESS: {
+      const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
+      const post = state.mainPosts[postIndex];
+      const Comments = action.data.comments;
+      const mainPosts = [...state.mainPosts];
+      mainPosts[postIndex] = { ...post, Comments };
+      return {
+        ...state,
+        mainPosts,
+      };
+    }
+    case LOAD_COMMENTS_FAILURE: {
+      return {
+        ...state,
       };
     }
     default: {

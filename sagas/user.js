@@ -3,11 +3,12 @@ import axios from 'axios';
 import {
   all, fork, call, put, takeLatest, takeEvery,
 } from 'redux-saga/effects';
-import {
+import user, {
   LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS,
   LOG_OUT_REQUEST, LOG_OUT_FAILURE, LOG_OUT_SUCCESS,
   SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE,
   LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOAD_USER_FAILURE,
+  LOAD_USER_REQUEST2, LOAD_USER_SUCCESS2, LOAD_USER_FAILURE2,
 } from '../reducers/user';
 
 function loginAPI(loginData) {
@@ -114,11 +115,40 @@ function* watchLoadUser() {
   yield takeLatest(LOAD_USER_REQUEST, loadUser);
 }
 
+function loadUserAPI2(userId) {
+  // 서버에 요청을 보내느 부분
+  return axios.get(`/user/${userId}`, {
+    withCredentials: true,
+  });
+}
+
+function* loadUser2(action) {
+  try {
+    const result = yield call(loadUserAPI2, action.data);
+    console.log('result : ', result);
+    yield put({ // / put 은 dispatch 와 동일
+      type: LOAD_USER_SUCCESS2,
+      data: result.data,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: LOAD_USER_FAILURE2,
+      error: e,
+    });
+  }
+}
+
+function* watchLoadUser2() {
+  yield takeLatest(LOAD_USER_REQUEST2, loadUser2);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLogin),
     fork(watchLogout),
     fork(watchSignUp),
     fork(watchLoadUser),
+    fork(watchLoadUser2),
   ]);
 }

@@ -31,6 +31,10 @@ export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
+export const LOAD_USER_REQUEST2 = 'LOAD_USER_REQUEST2';
+export const LOAD_USER_SUCCESS2 = 'LOAD_USER_SUCCESS2';
+export const LOAD_USER_FAILURE2 = 'LOAD_USER_FAILURE2';
+
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
@@ -74,7 +78,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: false,
-        logInErrorReason: saction.error,
+        logInErrorReason: action.error,
         me: null,
       };
     }
@@ -130,12 +134,37 @@ export default (state = initialState, action) => {
       };
     }
     case LOAD_USER_SUCCESS: {
-      return {
-        ...state,
-        me: action.data,
-      };
+      // if (action.me) {
+        return {
+          ...state,
+          me: action.data,
+        };
+      // }
+      // console.error('userInfo!!!!');
+      // return {
+      //   ...state,
+      //   userInfo: action.data,
+      // };
     }
     case LOAD_USER_FAILURE: {
+      return {
+        ...state,
+      };
+    }
+
+    case LOAD_USER_REQUEST2: {
+      return {
+        ...state,
+      };
+    }
+    case LOAD_USER_SUCCESS2: {
+      console.error('userInfo!!!!');
+      return {
+        ...state,
+        userInfo: action.data,
+      };
+    }
+    case LOAD_USER_FAILURE2: {
       return {
         ...state,
       };
