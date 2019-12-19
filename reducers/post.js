@@ -61,6 +61,30 @@ export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
 
 export default (state = initialState, action) => {
   switch (action.type) {
+
+    case UPLOAD_IMAGES_REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case UPLOAD_IMAGES_SUCCESS: {
+      return {
+        ...state,
+        imagePaths: [...state.imagePaths, ...action.data],
+      };
+    }
+    case UPLOAD_IMAGES_FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case REMOVE_IMAGE: {
+      return {
+        ...state,
+        imagePaths: state.imagePaths.filter((v, i) => i !== action.index),
+      };
+    }
+
     case ADD_POST_REQUEST: {
       return {
         ...state,
@@ -137,11 +161,6 @@ export default (state = initialState, action) => {
         addCommentErrorReason: action.error,
       };
     }
-    case LOAD_COMMENTS_REQUEST: {
-      return {
-        ...state,
-      };
-    }
     case LOAD_COMMENTS_SUCCESS: {
       const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
       const post = state.mainPosts[postIndex];
@@ -151,11 +170,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         mainPosts,
-      };
-    }
-    case LOAD_COMMENTS_FAILURE: {
-      return {
-        ...state,
       };
     }
     default: {
