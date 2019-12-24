@@ -18,9 +18,6 @@ const Profile = () => {
   const { me, followerList, followingList } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
-  console.log('followerList : ', followerList);
-  console.log('followingList : ', followingList);
-
   useEffect(() => {
     if (me) {
       dispatch({
