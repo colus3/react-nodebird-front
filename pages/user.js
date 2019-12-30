@@ -1,26 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Avatar } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { LOAD_USER_POSTS_REQUEST } from '../reducers/post';
 import { LOAD_USER_REQUEST2 } from '../reducers/user';
-import PostCard from '../components/PostCard';
+import PostCard from '../containers/PostCard';
 
 const User = ({ id }) => {
-  const dispatch = useDispatch();
   const { mainPosts } = useSelector((state) => state.post);
   const { userInfo } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    dispatch({
-      type: LOAD_USER_REQUEST2,
-      data: id,
-    });
-    dispatch({
-      type: LOAD_USER_POSTS_REQUEST,
-      data: id,
-    });
-  }, []);
 
   console.log('userInfo : ', userInfo);
 
@@ -54,7 +42,7 @@ const User = ({ id }) => {
           </Card>
         )
         : null}
-      {mainPosts.map((c) => <PostCard key={+c.createdAt} post={c} />)}
+      {mainPosts.map((c) => <PostCard key={c.id} post={c} />)}
     </div>
   );
 };
@@ -64,8 +52,17 @@ User.propTypes = {
 };
 
 User.getInitialProps = async (context) => {
-  console.log('user getInitialProps', context.query.id);
-  return { id: parseInt(context.query.id, 10) };
+  const id = parseInt(context.query.id, 10);
+  console.log('user getInitialProps', id);
+  context.store.dispatch({
+    type: LOAD_USER_REQUEST2,
+    data: id,
+  });
+  context.store.dispatch({
+    type: LOAD_USER_POSTS_REQUEST,
+    data: id,
+  });
+  return { id };
 };
 
 export default User;
