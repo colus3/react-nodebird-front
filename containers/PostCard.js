@@ -23,7 +23,7 @@ import {
 import PostImages from '../components/PostImages';
 import PostCardContent from '../components/PostCardContent';
 import CommentForm from './CommentForm';
-import FollowButton from './FollowButton';
+import FollowButton from '../components/FollowButton';
 
 moment.locale('ko');
 

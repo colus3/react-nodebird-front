@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const FollowButton = ({ post, onUnfollow, onFollow }) => {
-  const { me } = useSelector( (state) => state.user );
+  const { me } = useSelector((state) => state.user);
   return (
     !me || post.User.id === me.id
       ? null

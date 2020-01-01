@@ -2,9 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import {
   Form, Input, Checkbox, Button,
 } from 'antd';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import { SIGN_UP_REQUEST } from '../reducers/user';
+
+const SignupError = styled.div`
+  color: red;
+`;
 
 export const useInput = (initValue = null) => {
   const [value, setter] = useState(initValue);
@@ -93,11 +98,11 @@ const SignUp = () => {
             required
             onChange={onChangePasswordCheck}
           />
-          {passwordError && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
+          {passwordError && <SignupError>비밀번호가 일치하지 않습니다.</SignupError>}
         </div>
         <div>
           <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>제 말을 잘 들을 것을 동의합니다.</Checkbox>
-          {termError && <div style={{ color: 'red' }}> 약관에 동의하셔야 합니다.</div>}
+          {termError && <SignupError> 약관에 동의하셔야 합니다.</SignupError>}
         </div>
         <div style={{ marginTop: 10 }}>
           <Button type="primary" htmlType="submit" loading={isSigningUp}>가입하기</Button>
