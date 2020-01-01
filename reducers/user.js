@@ -173,7 +173,7 @@ export default (state = initialState, action) => {
         break;
       }
       case LOAD_FOLLOWERS_SUCCESS: {
-        draft.followerList.push(action.data);
+        action.data.forEach((d) => draft.followerList.push(d));
         draft.hasMoreFollower = action.data.length === 3;
         break;
       }
@@ -187,7 +187,7 @@ export default (state = initialState, action) => {
         break;
       }
       case LOAD_FOLLOWINGS_SUCCESS: {
-        action.data.forEach((d) => draft.followerList.push(d));
+        action.data.forEach((d) => draft.followingList.push(d));
         draft.hasMoreFollowing = action.data.length === 3;
         break;
       }

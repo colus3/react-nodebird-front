@@ -12,6 +12,7 @@ import {
 } from '../reducers/user';
 import { LOAD_USER_POSTS_REQUEST } from '../reducers/post';
 import PostCard from '../containers/PostCard';
+import FollowList from "../containers/FollowList";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -49,22 +50,7 @@ const Profile = () => {
   return (
     <div>
       <NicknameEditForm />
-      <List
-        style={{ marginBottom: '20px' }}
-        grid={{ gutter: 4, xs: 2, md: 3 }}
-        size="small"
-        header={<div>팔로잉 목록</div>}
-        loadMore={hasMoreFollowing && <Button style={{ width: '100%' }} onClick={loadMoreFollowings}>더 보기</Button>}
-        bordered
-        dataSource={followingList}
-        renderItem={(item) => (
-          <List.Item style={{ marginTop: '20px' }}>
-            <Card actions={[<Icon key="stop" type="stop" onClick={onUnfollow(item.id)} />]}>
-              <Card.Meta description={item.nickname} />
-            </Card>
-          </List.Item>
-        )}
-      />
+      <FollowList header="팔로잉 목록" hasMore={hasMoreFollowing} onClick={loadMoreFollowings} />
       <List
         style={{ marginBottom: '20px' }}
         grid={{ gutter: 4, xs: 2, md: 3 }}
